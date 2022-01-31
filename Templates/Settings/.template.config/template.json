@@ -2,9 +2,9 @@
   "$schema": "http://json.schemastore.org/template",
   "author": "hk-modding",
   "classifications": [ "Class Library" ],
-  "identity": "HKModding.ModTemplate.CSharp",
-  "name": "Hollow Knight Mod",
-  "shortName": "hkmod",
+  "identity": "HKModding.SettingsTemplate.CSharp",
+  "name": "Hollow Knight mod template using settings.",
+  "shortName": "hksettings",
   "symbols": {
     "modName": {
       "description": "The name of your mod.",
@@ -25,17 +25,17 @@
       "replaces": "{modDescription}",
       "defaultValue": "A Hollow Knight mod."
     },
-    "hkInstallPath": {
-      "description": "The install location of Hollow Knight on your PC.",
+    "hkRefsPath": {
+      "description": "The location of Hollow Knight's Managed/ folder on your PC.",
       "type": "parameter",
-      "replaces": "{hkInstallPath}",
-      "defaultValue": "$(HOME)/.local/share/Steam/steamapps/common/Hollow Knight/"
+      "replaces": "{hkRefsPath}",
+      "defaultValue": "$(MSBuildProgramFiles32)/Steam/steamapps/common/Hollow Knight/hollow_knight_Data/Managed/"
     },
     "exportPath": {
       "description": "Where you want to export your packaged mod to on your PC.",
       "type": "parameter",
       "replaces": "{exportPath}",
-      "defaultValue": "$(HOME)/.local/share/Steam/steamapps/common/Hollow Knight/hollow_knight_Data/Managed/Export/"
+      "defaultValue": "$(MSBuildProgramFiles32)/Steam/steamapps/common/Hollow Knight/hollow_knight_Data/Managed/Mods/Export/"
     }
   }
 }
