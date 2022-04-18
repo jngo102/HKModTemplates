@@ -51,6 +51,7 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: bin/Release/HKModding.HKMod.Templates.${{ env.NUPKG_VER }}.nupkg
           asset_name: HKModTemplates.nupkg
+          asset_content_type: application/octet-stream
 
       - name: Publish to NuGet gallery
         uses: brandedoutcast/publish-nuget@v2.5.5
