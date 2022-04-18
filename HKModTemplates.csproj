@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <PackageType>Template</PackageType>
     <PackageVersion>1.0.2</PackageVersion>
     <PackageId>HKModding.HKMod.Templates</PackageId>

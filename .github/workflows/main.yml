@@ -47,6 +47,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: bin/Release/HKModding.HKMod.Templates.${{ env.NUPKG_VER }}.nupkg
+          asset_path: HKModding.HKMod.Templates.${{ env.NUPKG_VER }}.nupkg
           asset_name: HKModTemplates.nupkg
           asset_content_type: application/octet-stream
