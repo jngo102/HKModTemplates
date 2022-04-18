@@ -37,7 +37,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.NUPKG_VER }}
-          release_name: Release ${{ github.ref }}
+          release_name: Hollow Knight Mod Templates NuGet Package v${{ env.NUPKG_VER }}
           body: "A new version of HKModTemplates has released.\n\nChangelog:\n- "
           draft: false
           prerelease: false
