@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageLicenseFile>License.md</PackageLicenseFile>
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <PackageType>Template</PackageType>
-    <PackageVersion>1.0.3</PackageVersion>
+    <PackageVersion>1.0.4</PackageVersion>
     <PackageId>HKModding.HKMod.Templates</PackageId>
     <Title>Hollow Knight Mod Templates</Title>
     <Authors>hk-modding</Authors>
@@ -20,6 +21,7 @@
   <ItemGroup>
     <Content Include="Templates\**\*" Exclude="Templates\**\bin\**;Templates\**\obj\**" />
     <Compile Remove="**\*" />
+    <None Include="License.md" Pack="true" PackagePath="" />
     <None Include="ReadMe.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
