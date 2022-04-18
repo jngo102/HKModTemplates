@@ -3,7 +3,7 @@
 This is a set of .NET templates for creating Hollow Knight mods. 
 
 ## Installation
-### From NugGet gallery
+### From NuGet gallery
 1.  From a terminal, run `dotnet new --install HKModding.HKMod.Templates`.
 ### Manual installation
 1.  Go to the Releases page (https://github.com/jngo102/HKModTemplates/releases) and download the latest `HKModTemplates.nupkg` file (not the Source Code!). 
