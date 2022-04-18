@@ -3,7 +3,7 @@
   <PropertyGroup>
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <PackageType>Template</PackageType>
-    <PackageVersion>1.0.2</PackageVersion>
+    <PackageVersion>1.0.3</PackageVersion>
     <PackageId>HKModding.HKMod.Templates</PackageId>
     <Title>Hollow Knight Mod Templates</Title>
     <Authors>hk-modding</Authors>
