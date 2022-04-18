@@ -1,4 +1,4 @@
-name: Publish
+name: Build and Publish
 
 on:
   push:
@@ -7,20 +7,28 @@ on:
 
 jobs:
   build:
-    name: Publish to NuGet gallery and releases
+    name: Build and create release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      
+      - name: Setup MSBuild
+        run: |
+          sudo apt-get install -y nuget mono-devel mono-xbuild
 
+      - name: Restore packages
+        run: nuget restore HKModTemplates.csproj
+
+      - name: Build project
+        run: dotnet pack --configuration Release -o .
+        
       - name: Publish to NuGet gallery
-        id: publish_nuget
-        uses: brandedoutcast/publish-nuget@v2.5.5
-        with:
-          PROJECT_FILE_PATH: HKModTemplates.csproj
-          PACKAGE_NAME: HKModTemplates
-          NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
-          VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
+        run: dotnet nuget push *.nupkg -k ${{ secrets.NUGET_API_KEY -s https://api.nuget.org/v3/index.json --skip-duplicate -n
+
+      - name: Get NuGet package version
+        run: |
+          echo "NUPKG_VER=$(basename $(find HKModding.HKMod.Templates.*.*.*.nupkg) | cut -c27-31)" >> $GITHUB_ENV
 
       - name: Create release
         id: create_release
@@ -28,7 +36,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.publish_nuget.outputs.VERSION }}
+          tag_name: ${{ env.RELEASE_TAG }}
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
@@ -39,6 +47,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ steps.publish_nuget.outputs.PACKAGE_PATH }}
+          asset_path: bin/Release/HKModding.HKMod.Templates.${{ env.NUPKG_VER }}.nupkg
           asset_name: HKModTemplates.nupkg
-          asset_content_type: application/octet
