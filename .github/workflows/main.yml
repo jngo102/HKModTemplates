@@ -1,0 +1,60 @@
+name: Build and Publish
+
+on:
+  push:
+    branches: main
+  pull_request:
+
+jobs:
+  build:
+    name: Build and create release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Setup MSBuild
+        run: |
+          sudo apt-get install -y nuget mono-devel mono-xbuild
+
+      - name: Restore packages
+        run: nuget restore HKModTemplates.csproj
+
+      - name: Build project
+        run: dotnet pack --configuration Release
+
+      - name: Generate tag
+        id: create_tag
+        run: |
+          echo "RELEASE_TAG=$(echo $RANDOM | md5sum | head -c 20; echo)" >> $GITHUB_ENV
+
+      - name: Get NuGet package version
+        run: |
+          echo "NUPKG_VER=$(basename $(find bin/Release/HKModding.HKMod.Templates.*.*.*.nupkg) | cut -c27-31)" >> $GITHUB_ENV
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: bin/Release/HKModding.HKMod.Templates.${{ env.NUPKG_VER }}.nupkg
+          asset_name: HKModTemplates.nupkg
+
+      - name: Publish to NuGet gallery
+        uses: brandedoutcast/publish-nuget@v2.5.5
+        with:
+          PROJECT_FILE_PATH: HKModTemplates.csproj
+          PACKAGE_NAME: HKModTemplates
+          NUGET_KEY: ${{ secrets.NUGET_API_KEY }}

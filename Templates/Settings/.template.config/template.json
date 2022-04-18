@@ -30,12 +30,6 @@
       "type": "parameter",
       "replaces": "{hkRefsPath}",
       "defaultValue": "$(MSBuildProgramFiles32)/Steam/steamapps/common/Hollow Knight/hollow_knight_Data/Managed/"
-    },
-    "exportPath": {
-      "description": "Where you want to export your packaged mod to on your PC.",
-      "type": "parameter",
-      "replaces": "{exportPath}",
-      "defaultValue": "$(MSBuildProgramFiles32)/Steam/steamapps/common/Hollow Knight/hollow_knight_Data/Managed/Mods/Export/"
     }
   }
 }
