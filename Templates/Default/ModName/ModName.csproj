@@ -1,6 +1,8 @@
 ﻿<!-- Credit to SFGrenade https://github.com/SFGrenade -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <!-- Path to DLL references required to build mod -->
+    <HollowKnightRefs>{hkRefsPath}</HollowKnightRefs>
     <!-- Path to your mods folder -->
     <ModsPath>{hkRefsPath}/Mods</ModsPath>
     <!-- Relative path of references that are local to project -->
