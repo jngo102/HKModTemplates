@@ -13,16 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: bin/Release/HKModding.HKMod.Templates.${{ env.NUPKG_VER }}.nupkg
-          asset_name: HKModTemplates.nupkg
-          asset_content_type: application/octet-stream
-
       - name: Publish to NuGet gallery
         id: publish_nuget
         uses: brandedoutcast/publish-nuget@v2.5.5
