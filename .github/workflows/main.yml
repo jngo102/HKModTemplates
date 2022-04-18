@@ -24,7 +24,7 @@ jobs:
         run: dotnet pack --configuration Release -o .
         
       - name: Publish to NuGet gallery
-        run: dotnet nuget push *.nupkg -k ${{ secrets.NUGET_API_KEY -s https://api.nuget.org/v3/index.json --skip-duplicate -n
+        run: dotnet nuget push *.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate -n
 
       - name: Get NuGet package version
         run: |
