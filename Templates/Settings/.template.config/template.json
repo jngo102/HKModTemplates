@@ -26,10 +26,14 @@
       "defaultValue": "A Hollow Knight mod."
     },
     "hkRefsPath": {
-      "description": "The location of Hollow Knight's Managed/ folder on your PC.",
+      "description": "The location of your project references.",
       "type": "parameter",
       "replaces": "{hkRefsPath}",
       "defaultValue": "$(MSBuildProgramFiles32)/Steam/steamapps/common/Hollow Knight/hollow_knight_Data/Managed/"
     }
+  },
+  "tags": {
+    "language": "C#",
+    "type": "project"
   }
 }

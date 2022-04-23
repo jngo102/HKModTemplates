@@ -2,29 +2,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UObject = UnityEngine.Object;
 
 namespace {modName}
 {
-    public class {modName} : Mod
+    internal class {modName} : Mod
     {
-        internal static {modName} Instance;
+        internal static {modName} Instance { get; private set; }
 
-        // public override List<ValueTuple<string, string>> GetPreloadNames()
-        // {
-        //     return new List<ValueTuple<string, string>>
-        //     {
-        //         new ValueTuple<string, string>("White_Palace_18", "White Palace Fly")
-        //     };
-        // }
+        public {modName}() : base("{modName}") { }
 
-        // public {modName}() : base("{modName}")
-        // {
-        //     Instance = this;
-        // }
+        public override string GetVersion()
+        {
+            return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
 
-        public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
+        public override void Initialize()
         {
             Log("Initializing");
 

@@ -2,9 +2,9 @@
   "$schema": "http://json.schemastore.org/template",
   "author": "hk-modding",
   "classifications": [ "Class Library" ],
-  "identity": "HKModding.DefaultTemplate.CSharp",
-  "name": "Default Hollow Knight mod template.",
-  "shortName": "hkmod",
+  "identity": "HKModding.PreloadsTemplate.CSharp",
+  "name": "Hollow Knight mod template with preloads.",
+  "shortName": "hkpreloads",
   "symbols": {
     "modName": {
       "description": "The name of your mod.",

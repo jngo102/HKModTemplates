@@ -2,20 +2,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UObject = UnityEngine.Object;
 
 namespace {modName}
 {
-    public class {modName} : Mod, IGlobalSettings<GlobalSettings>, ILocalSettings<LocalSettings>
+    internal class {modName} : Mod, IGlobalSettings<GlobalSettings>, ILocalSettings<LocalSettings>
     {
-        private GlobalSettings _globalSettings = new();
-        private LocalSettings _localSettings = new();
+        internal static {modName} Instance { get; private set; }
 
-        public GlobalSettings GlobalSettings => _globalSettings;
-        public LocalSettings LocalSettings => _localSettings;
+        public GlobalSettings GlobalSettings { get; private set; }
+        public LocalSettings LocalSettings { get; private set; }
 
-        internal static {modName} Instance;
+        public {modName}(): base("{modName}") { }
+
+        public override string GetVersion()
+        {
+            return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
 
         public override void Initialize()
         {
@@ -28,22 +33,22 @@ namespace {modName}
 
         public void OnLoadGlobal(GlobalSettings globalSettings)
         {
-            _globalSettings = globalSettings;
+            GlobalSettings = globalSettings;
         }
 
         public GlobalSettings OnSaveGlobal()
         {
-            return _globalSettings;
+            return GlobalSettings;
         }
 
         public void OnLoadLocal(LocalSettings localSettings)
         {
-            _localSettings = localSettings;
+            LocalSettings = localSettings;
         }
 
         public LocalSettings OnSaveLocal()
         {
-            return _localSettings;
+            return LocalSettings;
         }
     }
 }
