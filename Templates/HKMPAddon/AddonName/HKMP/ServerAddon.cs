@@ -1,22 +1,22 @@
 using Hkmp.Api.Server;
 using Hkmp.Networking.Packet;
 
-namespace {modName}.HKMP
+namespace {addonName}.HKMP
 {
-    internal class {modName}ServerAddon : ServerAddon
+    internal class {addonName}ServerAddon : ServerAddon
     {
         protected override string Name
         { 
             get
             {
-                return "{modName}";
+                return "{addonName}";
             }
         }
         protected override string Version
         {
             get
             {
-                return {modName}.Instance.GetVersion();
+                return {addonName}.Instance.GetVersion();
             }
         }
 
@@ -28,7 +28,7 @@ namespace {modName}.HKMP
             }
         }
 
-        public static {modName}ServerAddon Instance { get; private set; }
+        public static {addonName}ServerAddon Instance { get; private set; }
 
         public override void Initialize(IServerApi serverApi)
         {
@@ -37,21 +37,21 @@ namespace {modName}.HKMP
             var sender = serverApi.NetServer.GetNetworkSender<FromServerToClientPackets>(Instance);
             var receiver = serverApi.NetServer.GetNetworkReceiver<FromClientToServerPackets>(Instance, InstantiatePackets);
 
-            receiver.RegisterPacketHandler<HelloServerFromClientToServerData>
+            receiver.RegisterPacketHandler<MessageFromClientToServerData>
             (
-                FromClientToServerPackets.HelloServer,
+                FromClientToServerPackets.Message,
                 (id, packetData) =>
                 {
-                    {modName}.Instance.Log($"Message from client {id}: {packetData.Message}");
+                    {addonName}.Instance.Log($"Message from client {id}: {packetData.Message}");
 
-                    sender.SendSingleData(FromServerToClientPackets.HelloClient, new HelloClientFromServerToClientData
+                    sender.SendSingleData(FromServerToClientPackets.Message, new MessageFromServerToClientData
                     {
                         Message = "Hello, Client!",
                     }, id);
                 }
             );
 
-            serverApi.ServerManager.PlayerConnectEvent +=    OnPlayerConnect;
+            serverApi.ServerManager.PlayerConnectEvent    += OnPlayerConnect;
             serverApi.ServerManager.PlayerDisconnectEvent += OnPlayerDisconnect;
             serverApi.ServerManager.PlayerEnterSceneEvent += OnPlayerEnterScene;
             serverApi.ServerManager.PlayerLeaveSceneEvent += OnPlayerLeaveScene;
@@ -81,8 +81,8 @@ namespace {modName}.HKMP
         {
             switch (serverPacket)
             {
-                case FromClientToServerPackets.HelloServer:
-                    return new HelloClientFromServerToClientData();
+                case FromClientToServerPackets.Message:
+                    return new MessageFromServerToClientData();
                 default:
                     return null;
             }

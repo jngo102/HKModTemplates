@@ -1,15 +1,15 @@
 ﻿<!-- Credit to SFGrenade https://github.com/SFGrenade -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <RootNamespace>{modName}</RootNamespace>
-    <AssemblyName>{modName}</AssemblyName>
+    <RootNamespace>{addonName}</RootNamespace>
+    <AssemblyName>{addonName}</AssemblyName>
     <TargetFramework>net472</TargetFramework>
-    <AssemblyTitle>{modName}</AssemblyTitle>
-    <Product>{modName}</Product>
-    <Description>{modDescription}</Description>
+    <AssemblyTitle>{addonName}</AssemblyTitle>
+    <Product>{addonName}</Product>
+    <Description>{addonDescription}</Description>
     <Copyright>Copyright © </Copyright>
-    <AssemblyVersion>1.0.*.*</AssemblyVersion>
-    <FileVersion>1.0.*.*</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -21,12 +21,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <!-- Path to mods folder of one installation of Hollow Knight -->
-    <ModsPath1>{hkRefsPath1}/Mods</ModsPath1>
-    <!-- Path to mods folder of another installation of Hollow Knight -->
-    <ModsPath2>{hkRefsPath2}/Mods</ModsPath2>
     <!-- Path to DLL references required to build mod -->
     <LocalRefs>{hkRefsPath1}</LocalRefs>
+    <!-- Path to mods folder of one installation of Hollow Knight -->
+    <ModsPath1>$(LocalRefs)/Mods</ModsPath1>
+    <!-- Path to mods folder of another installation of Hollow Knight -->
+    <ModsPath2>{hkRefsPath2}/Mods</ModsPath2>
     <!-- The folder that exports will be generated in -->
     <ExportDir>Output</ExportDir>
   </PropertyGroup>
@@ -66,7 +66,7 @@
     <MakeDir Directories="$(ModsPath2)/$(TargetName)" />
     <Copy SourceFiles="$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ModsPath2)/$(TargetName)" />
     <!-- Uncomment this if you have the game installed on Steam, Steam is in your PATH environment variable, and you want to run the game upon build. -->
-    <Exec Command="steam steam://rungameid/367520" />
+    <!-- Exec Command="steam steam://rungameid/367520" / -->
   </Target>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">

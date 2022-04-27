@@ -1,10 +1,10 @@
 using Hkmp.Api.Command.Client;
 
-namespace {modName}.HKMP
+namespace {addonName}.HKMP
 {
-    internal class {modName}Command : IClientCommand
+    internal class {addonName}Command : IClientCommand
     {
-        public string Trigger { get; } = "{modName}";
+        public string Trigger { get; } = "{addonName}";
 
         public string[] Aliases { get; } = new[]
         {
@@ -17,8 +17,8 @@ namespace {modName}.HKMP
 
         public void Execute(string[] arguments)
         {
-            var {modName}Instance = {modName}ClientAddon.Instance;
-            var sender = {modName}Instance.{modName}ClientAddonApi.NetClient.GetNetworkSender<FromClientToServerPackets>({modName}Instance);
+            var {addonName}Instance = {addonName}ClientAddon.Instance;
+            var sender = {addonName}Instance.{addonName}ClientAddonApi.NetClient.GetNetworkSender<FromClientToServerPackets>({addonName}Instance);
 
             string message = "Hello, Server!";
             if (arguments.Length > 1)
@@ -26,7 +26,7 @@ namespace {modName}.HKMP
                 message = arguments[1];
             }
 
-            sender.SendSingleData(FromClientToServerPackets.HelloServer, new HelloServerFromClientToServerData
+            sender.SendSingleData(FromClientToServerPackets.Message, new MessageFromClientToServerData
             {
                 Message = message,
             });

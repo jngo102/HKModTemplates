@@ -27,10 +27,9 @@ jobs:
       #   run: |
       #     wget {dependencyLink} -O {dependencyName}.zip
       #     unzip -o {dependencyName}.zip -d References
-
+          
       - name: Setup MSBuild
-        run: |
-          sudo apt-get install -y nuget mono-devel mono-xbuild
+        run: sudo apt-get install -y nuget mono-devel mono-xbuild
 
       - name: Restore packages
         run: nuget restore {modName}.csproj
@@ -40,13 +39,15 @@ jobs:
 
       - name: Get SHA256 of zipped mod
         id: get_hash
-        run: |
-          echo "RELEASE_SHA256=$(sha256sum Output/{modName}.zip | cut -d ' ' -f 1)" >> $GITHUB_ENV
+        run: echo "::set-output name=hash::$(sha256sum Output/{modName}.zip | cut -d ' ' -f 1)"
+
+      - name: Get Assembly version
+        id: get_version
+        run: echo "::set-output name=version::$(cat < Version.txt)"
 
       - name: Generate tag
         id: create_tag
-        run: |
-          echo "RELEASE_TAG=$(echo $RANDOM | md5sum | head -c 20; echo)" >> $GITHUB_ENV
+        run: echo "::set-output name=release_tag::$(echo $RANDOM | md5sum | head -c 20; echo)"
 
       - name: Create release
         id: create_release
@@ -54,9 +55,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.RELEASE_TAG }}
-          release_name: Release ${{ github.ref }}
-          body: "SHA256: ${{ env.RELEASE_SHA256 }}"
+          tag_name: ${{ steps.create_tag.outputs.release_tag }}
+          release_name: Release v${{ steps.get_version.outputs.version }}
+          body: "SHA256: ${{ steps.get_hash.outputs.hash }}"
           draft: false
           prerelease: false
 

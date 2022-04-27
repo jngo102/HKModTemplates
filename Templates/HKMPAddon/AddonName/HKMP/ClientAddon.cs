@@ -1,22 +1,22 @@
 using Hkmp.Api.Client;
 using Hkmp.Networking.Packet;
 
-namespace {modName}.HKMP
+namespace {addonName}.HKMP
 {
-    internal class {modName}ClientAddon : ClientAddon
+    internal class {addonName}ClientAddon : ClientAddon
     {
         protected override string Name
         { 
             get
             {
-                return "{modName}";
+                return "{addonName}";
             }
         }
         protected override string Version
         {
             get
             {
-                return {modName}.Instance.GetVersion();
+                return {addonName}.Instance.GetVersion();
             }
         }
 
@@ -28,33 +28,33 @@ namespace {modName}.HKMP
             }
         }
 
-        public static {modName}ClientAddon Instance { get; private set; }
+        public static {addonName}ClientAddon Instance { get; private set; }
 
-        public IClientApi {modName}ClientAddonApi { get; private set;}
+        public IClientApi {addonName}ClientAddonApi { get; private set;}
 
         public override void Initialize(IClientApi clientApi)
         {
             Instance = this;
 
-            {modName}ClientAddonApi = clientApi;
+            {addonName}ClientAddonApi = clientApi;
 
             var sender = clientApi.NetClient.GetNetworkSender<FromClientToServerPackets>(Instance);
             var receiver = clientApi.NetClient.GetNetworkReceiver<FromServerToClientPackets>(Instance, InstantiatePackets);
 
-            receiver.RegisterPacketHandler<HelloClientFromServerToClientData>
+            receiver.RegisterPacketHandler<MessageFromServerToClientData>
             (
-                FromServerToClientPackets.HelloClient,
+                FromServerToClientPackets.Message,
                 packetData =>
                 {
-                    {modName}.Instance.Log("Message from server: " + packetData.Message);
+                    {addonName}.Instance.Log("Message from server: " + packetData.Message);
                 }
             );
 
-            clientApi.CommandManager.RegisterCommand(new {modName}Command());
+            clientApi.CommandManager.RegisterCommand(new {addonName}Command());
 
-            clientApi.ClientManager.ConnectEvent +=          OnConnect;
-            clientApi.ClientManager.DisconnectEvent +=       OnDisconnect;
-            clientApi.ClientManager.PlayerConnectEvent +=    OnPlayerConnect;
+            clientApi.ClientManager.ConnectEvent          += OnConnect;
+            clientApi.ClientManager.DisconnectEvent       += OnDisconnect;
+            clientApi.ClientManager.PlayerConnectEvent    += OnPlayerConnect;
             clientApi.ClientManager.PlayerDisconnectEvent += OnPlayerDisconnect;
             clientApi.ClientManager.PlayerEnterSceneEvent += OnPlayerEnterScene;
             clientApi.ClientManager.PlayerLeaveSceneEvent += OnPlayerLeaveScene;
@@ -94,8 +94,8 @@ namespace {modName}.HKMP
         {
             switch (clientPacket)
             {
-                case FromServerToClientPackets.HelloClient:
-                    return new HelloServerFromClientToServerData();
+                case FromServerToClientPackets.Message:
+                    return new MessageFromClientToServerData();
                 default:
                     return null;
             }

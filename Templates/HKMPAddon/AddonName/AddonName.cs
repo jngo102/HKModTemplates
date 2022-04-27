@@ -6,20 +6,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using {modName}.HKMP;
+using {addonName}.HKMP;
 
 using UObject = UnityEngine.Object;
 
-namespace {modName}
+namespace {addonName}
 {
-    internal class {modName} : Mod
+    internal class {addonName} : Mod
     {
-        internal static {modName} Instance { get; private set; }
+        internal static {addonName} Instance { get; private set; }
 
-        private static readonly {modName}ClientAddon _clientAddon = new();
-        private static readonly {modName}ServerAddon _serverAddon = new();
+        private static readonly {addonName}ClientAddon _clientAddon = new();
+        private static readonly {addonName}ServerAddon _serverAddon = new();
 
-        public {modName}() : base("{modName}") { }
+        public {addonName}() : base("{addonName}") { }
 
         public override string GetVersion()
         {

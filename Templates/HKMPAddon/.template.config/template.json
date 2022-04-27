@@ -6,23 +6,23 @@
   "name": "Template for HKMP add-ons.",
   "shortName": "hkmpaddon",
   "symbols": {
-    "modName": {
-      "description": "The name of your mod.",
+    "addonName": {
+      "description": "The name of your add-on.",
       "type": "parameter",
-      "replaces": "{modName}",
-      "defaultValue": "HKMod",
-      "fileRename": "ModName"
+      "replaces": "{addonName}",
+      "defaultValue": "HKMPAddon",
+      "fileRename": "AddonName"
     },
-    "modAuthor": {
-      "description": "The mod's author, i.e. your name.",
+    "addonAuthor": {
+      "description": "The add-on's author, i.e. your name.",
       "type": "parameter",
-      "replaces": "{modAuthor}",
+      "replaces": "{addonAuthor}",
       "defaultValue": ""
     },
-    "modDescription": {
-      "description": "A description of the mod.",
+    "addonDescription": {
+      "description": "A description of the add-on.",
       "type": "parameter",
-      "replaces": "{modDescription}",
+      "replaces": "{addonDescription}",
       "defaultValue": "An HKMP add-on."
     },
     "hkRefsPath1": {

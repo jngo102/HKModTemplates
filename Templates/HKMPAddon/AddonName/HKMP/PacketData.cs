@@ -1,9 +1,9 @@
 using Hkmp.Networking.Packet;
 
-namespace {modName}.HKMP
+namespace {addonName}.HKMP
 {
 #region Server to Client
-    internal class HelloClientFromServerToClientData : IPacketData
+    internal class MessageFromServerToClientData : IPacketData
     {
         public bool IsReliable
         {
@@ -39,12 +39,12 @@ namespace {modName}.HKMP
 
     public enum FromServerToClientPackets
     {
-        HelloClient,
+        Message,
     }
 #endregion
 
 #region Client to Server
-    internal class HelloServerFromClientToServerData : IPacketData
+    internal class MessageFromClientToServerData : IPacketData
     {
         public bool IsReliable
         {
@@ -77,7 +77,7 @@ namespace {modName}.HKMP
 
     public enum FromClientToServerPackets
     {
-        HelloServer,
+        Message,
     }
 #endregion
 }
