@@ -27,8 +27,8 @@ jobs:
         run: dotnet nuget push *.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json -n
 
       - name: Get NuGet package version
-        run: |
-          echo "NUPKG_VER=$(basename $(find HKModding.HKMod.Templates.*.*.*.nupkg) | cut -c27-31)" >> $GITHUB_ENV
+        id: get_version
+        run: echo ::set-output name=version::$(find HKModding.HKMod.Templates.*.*.*.nupkg | sed "s/HKModding.HKMod.Templates.//" | sed s/.nupkg//)
 
       - name: Create release
         id: create_release
@@ -36,8 +36,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.NUPKG_VER }}
-          release_name: Hollow Knight Mod Templates NuGet Package v${{ env.NUPKG_VER }}
+          tag_name: ${{ steps.get_version.outputs.version }}
+          release_name: Hollow Knight Mod Templates NuGet Package v${{ steps.get_version.outputs.version }}
           body: "A new version of HKModTemplates has released.\n\nChangelog:\n- "
           draft: false
           prerelease: false
@@ -48,6 +48,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: HKModding.HKMod.Templates.${{ env.NUPKG_VER }}.nupkg
+          asset_path: HKModding.HKMod.Templates.${{ steps.get_version.outputs.version }}.nupkg
           asset_name: HKModTemplates.nupkg
           asset_content_type: application/octet-stream
