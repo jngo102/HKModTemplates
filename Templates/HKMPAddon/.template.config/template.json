@@ -6,35 +6,35 @@
   "name": "Template for HKMP add-ons.",
   "shortName": "hkmpaddon",
   "symbols": {
-    "addonName": {
+    "name": {
       "description": "The name of your add-on.",
       "type": "parameter",
-      "replaces": "{addonName}",
+      "replaces": "{name}",
       "defaultValue": "HKMPAddon",
-      "fileRename": "AddonName"
+      "fileRename": "Name"
     },
-    "addonAuthor": {
+    "author": {
       "description": "The add-on's author, i.e. your name.",
       "type": "parameter",
-      "replaces": "{addonAuthor}",
+      "replaces": "{author}",
       "defaultValue": ""
     },
-    "addonDescription": {
+    "description": {
       "description": "A description of the add-on.",
       "type": "parameter",
-      "replaces": "{addonDescription}",
+      "replaces": "{description}",
       "defaultValue": "An HKMP add-on."
     },
-    "hkRefsPath1": {
+    "refsPath1": {
       "description": "The first location of your project references.",
       "type": "parameter",
-      "replaces": "{hkRefsPath1}",
+      "replaces": "{refsPath1}",
       "defaultValue": "$(MSBuildProgramFiles32)/Steam/steamapps/common/Hollow Knight/hollow_knight_Data/Managed"
     },
-    "hkRefsPath2": {
+    "refsPath2": {
       "description": "The second location of your project references.",
       "type": "parameter",
-      "replaces": "{hkRefsPath2}",
+      "replaces": "{refsPath2}",
       "defaultValue": "$(MSBuildProgramFiles32)/Steam/steamapps/common/Hollow Knight/hollow_knight_Data/Managed"
     }
   },

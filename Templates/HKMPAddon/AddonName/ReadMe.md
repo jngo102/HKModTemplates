@@ -1,3 +1,0 @@
-# {addonName}
-
-{addonDescription}

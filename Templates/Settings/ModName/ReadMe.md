@@ -1,3 +1,0 @@
-# {modName}
-
-{modDescription}

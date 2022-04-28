@@ -6,29 +6,29 @@
   "name": "Hollow Knight mod template with preloads.",
   "shortName": "hkpreloads",
   "symbols": {
-    "modName": {
+    "name": {
       "description": "The name of your mod.",
       "type": "parameter",
-      "replaces": "{modName}",
+      "replaces": "{name}",
       "defaultValue": "HKMod",
-      "fileRename": "ModName"
+      "fileRename": "name"
     },
-    "modAuthor": {
+    "author": {
       "description": "The mod's author, i.e. your name.",
       "type": "parameter",
-      "replaces": "{modAuthor}",
+      "replaces": "{author}",
       "defaultValue": ""
     },
-    "modDescription": {
+    "description": {
       "description": "A description of the mod.",
       "type": "parameter",
-      "replaces": "{modDescription}",
+      "replaces": "{description}",
       "defaultValue": "A Hollow Knight mod."
     },
-    "hkRefsPath": {
+    "refsPath": {
       "description": "The location of your project references.",
       "type": "parameter",
-      "replaces": "{hkRefsPath}",
+      "replaces": "{refsPath}",
       "defaultValue": "$(MSBuildProgramFiles32)/Steam/steamapps/common/Hollow Knight/hollow_knight_Data/Managed"
     }
   },
