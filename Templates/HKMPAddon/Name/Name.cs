@@ -19,12 +19,12 @@ namespace {name}
         /// <summary>
         /// An instance of the client add-on class.
         /// </summary>
-        private static readonly {name}ClientAddon _clientAddon = new();
+        private {name}ClientAddon _clientAddon;
         
         /// <summary>
         /// An instance of the server add-on class.
         /// </summary>
-        private static readonly {name}ServerAddon _serverAddon = new();
+        private {name}ServerAddon _serverAddon;
 
         public {name}() : base("{name}") { }
 
@@ -38,6 +38,9 @@ namespace {name}
             Log("Initializing");
 
             Instance = this;
+
+            _clientAddon = new {name}ClientAddon();
+            _serverAddon = new {name}ServerAddon();
 
             // Register the client and server add-ons.
             ClientAddon.RegisterAddon(_clientAddon);

@@ -1,5 +1,4 @@
 using Hkmp.Api.Client;
-using Hkmp.Networking.Packet;
 using System.Reflection;
 
 namespace {name}.HKMP
@@ -39,21 +38,27 @@ namespace {name}.HKMP
         public static {name}ClientAddon Instance { get; private set; }
 
         /// <summary>
-        /// A public client API object that is accessible from other classes.
+        /// Holds a reference to the client API passed into Initialize.
         /// </summary>
-        public static IClientApi ClientApi { get; private set;}
+        private IClientApi _clientApi;
 
         public override void Initialize(IClientApi clientApi)
         {
             Instance = this;
-
-            ClientApi = clientApi;
+            _clientApi = clientApi;
 
             // Sends packets from this client to the server.
-            var sender = clientApi.NetClient.GetNetworkSender<FromClientToServerPackets>(this);
+            var sender = clientApi.NetClient.GetNetworkSender<FromClientToServerPackets>(Instance);
 
             // Receives and handles packets from the server to this client.
-            var receiver = clientApi.NetClient.GetNetworkReceiver<FromServerToClientPackets>(this, InstantiatePackets);
+            var receiver = clientApi.NetClient.GetNetworkReceiver<FromServerToClientPackets>(Instance, clientPacket =>
+            {
+                return clientPacket switch
+                {
+                    FromServerToClientPackets.SendMessage => new MessageFromServerToClientData(),
+                    _ => null
+                };
+            });
 
             receiver.RegisterPacketHandler<MessageFromServerToClientData>
             (
@@ -99,17 +104,15 @@ namespace {name}.HKMP
         }
 
         /// <summary>
-        /// Handle server packets according to their type.
+        /// Sends a message from the client to the server.
         /// </summary>
-        private static IPacketData InstantiatePackets(FromServerToClientPackets clientPacket)
+        public void SendMessage(string message)
         {
-            switch (clientPacket)
+            var sender = _clientApi.NetClient.GetNetworkSender<FromClientToServerPackets>(Instance);
+            sender.SendSingleData(FromClientToServerPackets.SendMessage, new MessageFromClientToServerData
             {
-                case FromServerToClientPackets.SendMessage:
-                    return new MessageFromClientToServerData();
-                default:
-                    return null;
-            }
+                Message = message,
+            });
         }
     }
 }

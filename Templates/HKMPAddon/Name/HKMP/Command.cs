@@ -20,9 +20,6 @@ namespace {name}.HKMP
 
         public void Execute(string[] arguments)
         {
-            // Fetch the client API instance from the client API class.
-            var sender = {name}ClientAddon.ClientApi.NetClient.GetNetworkSender<FromClientToServerPackets>({name}ClientAddon.Instance);
-
             string message = "Hello, Server!";
             
             // If an argument has been passed into the command line, read it into the message string.
@@ -32,10 +29,7 @@ namespace {name}.HKMP
             }
 
             // Send the message to the server.
-            sender.SendSingleData(FromClientToServerPackets.SendMessage, new MessageFromClientToServerData
-            {
-                Message = message,
-            });
+            {name}ClientAddon.Instance.SendMessage(message);
         }
     }
 }

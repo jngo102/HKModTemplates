@@ -1,5 +1,4 @@
 using Hkmp.Api.Server;
-using Hkmp.Networking.Packet;
 using System.Reflection;
 
 namespace {name}.HKMP
@@ -34,20 +33,20 @@ namespace {name}.HKMP
             }
         }
 
-        /// <summary>
-        /// The global instance of the server add-on.
-        /// </summary>
-        public static {name}ServerAddon Instance { get; private set; }
-
         public override void Initialize(IServerApi serverApi)
         {
-            Instance = this;
-
             // Sends packets from the server to a client.
-            var sender = serverApi.NetServer.GetNetworkSender<FromServerToClientPackets>(Instance);
+            var sender = serverApi.NetServer.GetNetworkSender<FromServerToClientPackets>(this);
             
             // Receives and handles packets from a client to the server.
-            var receiver = serverApi.NetServer.GetNetworkReceiver<FromClientToServerPackets>(Instance, InstantiatePackets);
+            var receiver = serverApi.NetServer.GetNetworkReceiver<FromClientToServerPackets>(this, serverPacket =>
+            {
+                return serverPacket switch
+                {
+                    FromClientToServerPackets.SendMessage => new MessageFromClientToServerData(),
+                    _ => null
+                };
+            });
 
             receiver.RegisterPacketHandler<MessageFromClientToServerData>
             (
@@ -82,20 +81,6 @@ namespace {name}.HKMP
             {
                 {name}.Instance.Log($"[Server] Player of ID {player.Id} has left a scene.");
             };
-        }
-
-        /// <summary>
-        /// Handle client packets according to their type.
-        /// </summary>
-        private static IPacketData InstantiatePackets(FromClientToServerPackets serverPacket)
-        {
-            switch (serverPacket)
-            {
-                case FromClientToServerPackets.SendMessage:
-                    return new MessageFromServerToClientData();
-                default:
-                    return null;
-            }
         }
     }
 }
