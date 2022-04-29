@@ -11,7 +11,7 @@
       "type": "parameter",
       "replaces": "{name}",
       "defaultValue": "HKMod",
-      "fileRename": "name"
+      "fileRename": "Name"
     },
     "author": {
       "description": "The mod's author, i.e. your name.",
