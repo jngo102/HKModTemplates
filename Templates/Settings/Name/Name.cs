@@ -12,8 +12,8 @@ namespace {name}
     {
         internal static {name} Instance { get; private set; }
 
-        public GlobalSettings GlobalSettings { get; private set; }
-        public LocalSettings LocalSettings { get; private set; }
+        public GlobalSettings GlobalSettings { get; private set; } = new();
+        public LocalSettings LocalSettings { get; private set; } = new();
 
         public {name}(): base("{name}") { }
 
